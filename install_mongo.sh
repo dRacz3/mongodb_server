@@ -6,13 +6,13 @@ sudo apt-get install -y mongodb-enterprise
 sudo apt-get install -y mongodb-enterprise=3.2.19 mongodb-enterprise-server=3.2.19 mongodb-enterprise-shell=3.2.19 mongodb-enterprise-mongos=3.2.19 mongodb-enterprise-tools=3.2.19
 
 
-mkdir mongoDB_Project
+mkdir -p mongoDB_Project
 cd mongoDB_Project
 
 
 #creating data path
-mkdir data
-sudo chmod 777 -r data 
+mkdir -p /data
+sudo chmod 777 -R /data 
 sudo mkdir -p /data/configdb
 sudo mkdir -p /data/datadb
 sudo mkdir -p /data/datadb2

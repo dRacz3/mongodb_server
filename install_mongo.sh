@@ -4,17 +4,3 @@ echo "deb http://repo.mongodb.com/apt/ubuntu xenial/mongodb-enterprise/3.2 multi
 sudo apt-get update
 sudo apt-get install -y mongodb-enterprise
 sudo apt-get install -y mongodb-enterprise=3.2.19 mongodb-enterprise-server=3.2.19 mongodb-enterprise-shell=3.2.19 mongodb-enterprise-mongos=3.2.19 mongodb-enterprise-tools=3.2.19
-
-
-mkdir -p mongoDB_Project
-cd mongoDB_Project
-
-
-#creating data path
-mkdir -p /data
-sudo chmod 777 -R /data 
-sudo mkdir -p /data/configdb
-sudo mkdir -p /data/datadb
-sudo mkdir -p /data/datadb2
-sudo mkdir -p /data/datadb3
-

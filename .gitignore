@@ -1,3 +1,4 @@
 Shards/
 dataconfigdb/
-configdb/
+python_env/
+.ipynb_checkpoints/

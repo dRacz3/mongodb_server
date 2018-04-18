@@ -1,12 +1,6 @@
-mongodb_server
-
-user: mongolin
-pw: q
-
-
 MongoDB version :  3.2
 
-installation howto: 
+installation howto:
 https://docs.mongodb.com/v3.2/installation/
 
 replication:
@@ -60,19 +54,43 @@ headerline: import headerline as well
 file: data path
 
 
-datashard
-mongo --port 27021 --host localhost
-rs.initiate({_id: "rs0", version : 1, members : [{_id: 0, host : "localhost:27021"}]})
-rs.add("localhost:27022")
-rs.add("localhost:27023")
-
-configserver
+__configserver replication setup:__
+```console
 mongo --port 27010 --host localhost
 rs.initiate({_id: "rs1", version : 1, members : [{_id: 0, host : "localhost:27010"}]})
 rs.add("localhost:27008")
 rs.add("localhost:27009")
+```
 
 
+__Setting up an individual shard/replica set__
+```console
+mongo --port <port> --host <ip>
+rs.initiate({_id: "<replica_set_name>", version : 1, members : [{_id: 0, host : "<ip>:<port>"}]})
+rs.add("<ip_of_the_Secondary>:<port_of_the_Secondary>")
+rs.add("<ip_of_the_other_Secondary>:<port_of_the_other_Secondary>")
+```
 
+__In our case the process is the following :__
 
-
+*Shard0:*  
+```console
+mongo --port 27021 --host localhost
+rs.initiate({_id: "rs0", version : 1, members : [{_id: 0, host : "localhost:27021"}]})
+rs.add("localhost:27022")
+rs.add("localhost:27023")
+```
+*Shard1:*  
+```console
+mongo --port 27025 --host localhost
+rs.initiate({_id: "rs1", version : 1, members : [{_id: 0, host : "localhost:27025"}]})
+rs.add("localhost:27026")
+rs.add("localhost:27027")
+```
+*Shard2:*  
+```console
+mongo --port 27029 --host localhost
+rs.initiate({_id: "rs2", version : 1, members : [{_id: 0, host : "localhost:27029"}]})
+rs.add("localhost:27030")
+rs.add("localhost:27031")
+```

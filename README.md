@@ -57,7 +57,7 @@ file: data path
 __configserver replication setup:__
 ```console
 mongo --port 27010 --host localhost
-rs.initiate({_id: "rs1", version : 1, members : [{_id: 0, host : "localhost:27010"}]})
+rs.initiate({_id: "rsconf", version : 1, members : [{_id: 0, host : "localhost:27010"}]})
 rs.add("localhost:27008")
 rs.add("localhost:27009")
 ```

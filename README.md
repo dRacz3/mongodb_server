@@ -54,6 +54,9 @@ headerline: import headerline as well
 file: data path
 
 
+# __TODO: Move these to config JS files:__
+https://stackoverflow.com/questions/4837673/how-to-execute-mongo-commands-through-shell-scripts
+
 __configserver replication setup:__
 ```console
 mongo --port 27010 --host localhost

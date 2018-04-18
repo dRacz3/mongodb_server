@@ -60,5 +60,19 @@ headerline: import headerline as well
 file: data path
 
 
+datashard
+mongo --port 27021 --host localhost
+rs.initiate({_id: "rs0", version : 1, members : [{_id: 0, host : "localhost:27021"}]})
+rs.add("localhost:27022")
+rs.add("localhost:27023")
+
+configserver
+mongo --port 27010 --host localhost
+rs.initiate({_id: "rs1", version : 1, members : [{_id: 0, host : "localhost:27010"}]})
+rs.add("localhost:27008")
+rs.add("localhost:27009")
+
+
+
 
 

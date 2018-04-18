@@ -1,13 +1,10 @@
-#creating data path
-mkdir -p dataconfigdb
-mkdir -p dataconfigdb/confdb1
-mkdir -p dataconfigdb/confdb2
-mkdir -p dataconfigdb/confdb3
-mkdir -p Shards
-mkdir -p Shards/datadb1
-mkdir -p Shards/datadb2
-mkdir -p Shards/datadb3
+echo "Creating folders for config server!"
+mkdir -p dataconfigdb dataconfigdb/confdb1 dataconfigdb/confdb2 dataconfigdb/confdb3
 
+echo "Create folders for each shard!"
+mkdir -p shard1 shard1/db1 shard1/db2 shard1/db3 shard1/arbiter
+mkdir -p shard2 shard2/db1 shard2/db2 shard2/db3 shard2/arbiter
+mkdir -p shard3 shard3/db1 shard3/db2 shard3/db3 shard3/arbiter
 
 echo "Starting up mongo config server on port: 27010"
 xterm -e mongod --configsvr --dbpath dataconfigdb/confdb1 --port 27008 --bind_ip 127.0.0.1 --replSet rs1&
@@ -17,12 +14,19 @@ echo "Starting up router on port : 27011"
 xterm -e mongos -configdb rs1/localhost:27010 --port 27011 --bind_ip 127.0.0.1&
 
 
-echo "Running shards: "
-xterm -e mongod --shardsvr --port 27021 --bind_ip 127.0.0.1 --dbpath Shards/datadb1/ --replSet rs0&
-xterm -e mongod --shardsvr --port 27022 --bind_ip 127.0.0.1 --dbpath Shards/datadb2/ --replSet rs0&
-xterm -e mongod --shardsvr --port 27023 --bind_ip 127.0.0.1 --dbpath Shards/datadb3/ --replSet rs0&
+echo "Running shard 0 : "
+xterm -e mongod --shardsvr --port 27021 --bind_ip 127.0.0.1 --dbpath shard1/datadb1/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27022 --bind_ip 127.0.0.1 --dbpath shard1/datadb2/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27023 --bind_ip 127.0.0.1 --dbpath shard1/datadb3/ --replSet rs0&
 
-echo "Running configserver: "
+echo "Running shard 1 : "
+xterm -e mongod --shardsvr --port 27024 --bind_ip 127.0.0.1 --dbpath shard2/datadb1/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27025 --bind_ip 127.0.0.1 --dbpath shard2/datadb2/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27026 --bind_ip 127.0.0.1 --dbpath shard2/datadb3/ --replSet rs0&
 
+echo "Running shard 2 : "
+xterm -e mongod --shardsvr --port 27027 --bind_ip 127.0.0.1 --dbpath shard2/datadb1/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27028 --bind_ip 127.0.0.1 --dbpath shard2/datadb2/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27029 --bind_ip 127.0.0.1 --dbpath shard2/datadb3/ --replSet rs0&
 
-echo "Startup finshed, shards are probably running?!"
+echo "Startup finshed!"

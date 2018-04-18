@@ -26,18 +26,21 @@ xterm -e mongos -configdb rsconf/localhost:27010 --port 27011 --bind_ip 127.0.0.
 
 
 echo "Running shard 0 : "
-xterm -e mongod --shardsvr --port 27021 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"0"/$SHARD_SUBFOLDER"0"/ --replSet rs0&
-xterm -e mongod --shardsvr --port 27022 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"0"/$SHARD_SUBFOLDER"1"/ --replSet rs0&
-xterm -e mongod --shardsvr --port 27023 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"0"/$SHARD_SUBFOLDER"2"/ --replSet rs0&
+SHARD_ID="0"
+xterm -e mongod --shardsvr --port 27021 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"0"/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27022 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"1"/ --replSet rs0&
+xterm -e mongod --shardsvr --port 27023 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"2"/ --replSet rs0&
 
 echo "Running shard 1 : "
-xterm -e mongod --shardsvr --port 27025 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"1"/$SHARD_SUBFOLDER"0"/ --replSet rs1&
-xterm -e mongod --shardsvr --port 27026 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"1"/$SHARD_SUBFOLDER"1"/ --replSet rs1&
-xterm -e mongod --shardsvr --port 27027 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"1"/$SHARD_SUBFOLDER"2"/ --replSet rs1&
+SHARD_ID="1"
+xterm -e mongod --shardsvr --port 27025 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"0"/ --replSet rs1&
+xterm -e mongod --shardsvr --port 27026 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"1"/ --replSet rs1&
+xterm -e mongod --shardsvr --port 27027 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"2"/ --replSet rs1&
 
 echo "Running shard 2 : "
-xterm -e mongod --shardsvr --port 27029 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"2"/$SHARD_SUBFOLDER"0"/ --replSet rs2&
-xterm -e mongod --shardsvr --port 27030 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"2"/$SHARD_SUBFOLDER"1"/ --replSet rs2&
-xterm -e mongod --shardsvr --port 27031 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER"2"/$SHARD_SUBFOLDER"2"/ --replSet rs2&
+SHARD_ID="2"
+xterm -e mongod --shardsvr --port 27029 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"0"/ --replSet rs2&
+xterm -e mongod --shardsvr --port 27030 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"1"/ --replSet rs2&
+xterm -e mongod --shardsvr --port 27031 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"2"/ --replSet rs2&
 
 echo "Startup finshed!"

@@ -29,20 +29,20 @@ $mongo --port 27011 --host localhost
 ```
 **create or load database:**
 ```console
-$use ourdb
+$use cluster
 ```
 **Create a collection if do not have any:**
 ```console
-$db.createCollection("Users")
+$db.createCollection("users")
 ```
 **Import data set into collection**(from mongo shell won't work,  you have to use system shell):
 1. import .json file:
 ```console
-$mongoimport --host=localhost --port=27011  --db ourdb --collection Users --file data/database.json
+$mongoimport --host=localhost --port=27011  --db cluster --collection users --file data/database.json
 ```
 2. import .csv file:
 ```console
-$mongoimport --host=localhost --port=27011  --db ourdb --collection Users --type csv --headerline --file data/short_data.csv
+$mongoimport --host=localhost --port=27011  --db cluster --collection users --type csv --headerline --file data/short_data.csv
 ```
 where
 host: server ip
@@ -96,4 +96,45 @@ mongo --port 27029 --host localhost
 rs.initiate({_id: "rs2", version : 1, members : [{_id: 0, host : "localhost:27029"}]})
 rs.add("localhost:27030")
 rs.add("localhost:27031")
+```
+
+**Range sharding**
+1. Enable sharding:
+```console
+sh.enableSharding("cluster")
+```
+
+2. Create indexing:
+```console
+db.users.createIndex({ age: 1 })
+```
+
+3. Sharding of the collection:
+```console
+sh.shardCollection("cluster.users", { "age": 1 } )
+```
+
+4. Decrease chunk size to 1Mb:
+```console
+db.settings.save( { _id:"chunksize", value: 1 } )
+```
+
+5. Add tags to the shards:
+```console
+sh.addShardTag("rs0", "under20")
+sh.addShardTag("rs1", "btwn20and50")
+sh.addShardTag("rs2", "over50")
+```
+
+6. Add ranges to the tags:
+```console
+sh.addTagRange( "cluster.users", { age: 20 }, { age: 50 }, "btwn20and50")
+sh.addTagRange( "cluster.users", { age: 1 }, { age: 20 }, "under20")
+sh.addTagRange( "cluster.users", { age: 50 }, { age: 100 }, "over50")
+```
+
+Check the results:
+```console
+sh.status()
+db.printShardingStatus(true)
 ```

@@ -55,6 +55,6 @@ xterm -e mongod --shardsvr --port 27043 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLD
 xterm -e mongod --shardsvr --port 27044 --bind_ip 127.0.0.1 --dbpath $SHARD_FOLDER$SHARD_ID/$SHARD_SUBFOLDER"4"/ --replSet rs2&
 echo "Startup finshed!"
 
-sleep 10
+sleep 20
 
 ./config_shards.sh
